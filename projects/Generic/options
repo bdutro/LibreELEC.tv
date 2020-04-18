@@ -92,3 +92,6 @@
 
   # Default size of the ova image, in MB, eg. 4096
     OVA_SIZE="4096"
+
+  # build and install CEC framework support (yes / no)
+    CEC_FRAMEWORK_SUPPORT="yes"
