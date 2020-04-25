@@ -9,7 +9,7 @@ PKG_VERSION="b8e58b75b57b94378990cedb38459623c06fc3eb"
 PKG_SHA256="243d24a0ec7f0a3ce0fd556793e654fa4ec414f6dbbaba4dd44d3693a4f2fe8f"
 PKG_LICENSE="GPL"
 PKG_SITE="http://linuxtv.org/"
-PKG_URL="https://local.brettsprojects.com/files/$PKG_NAME-$PKG_VERSION.tar.bz2"
+PKG_URL="https://local.brettsprojects.com/files/$PKG_NAME-$PKG_VERSION.tar.xz"
 PKG_DEPENDS_TARGET="toolchain alsa-lib systemd elfutils ir-bpf-decoders"
 PKG_LONGDESC="Linux V4L2 and DVB API utilities and v4l libraries (libv4l)."
 PKG_TOOLCHAIN="autotools"
@@ -30,6 +30,7 @@ make_target() {
   make -C utils/keytable CFLAGS="$TARGET_CFLAGS"
   make -C utils/ir-ctl CFLAGS="$TARGET_CFLAGS"
   if [ "$CEC_FRAMEWORK_SUPPORT" = "yes" ]; then
+    make -C utils/libcecutil CFLAGS="$TARGET_CFLAGS"
     make -C utils/cec-ctl CFLAGS="$TARGET_CFLAGS"
   fi
   make -C lib CFLAGS="$TARGET_CFLAGS"
@@ -41,6 +42,7 @@ makeinstall_target() {
   make install DESTDIR=$INSTALL PREFIX=/usr -C utils/keytable
   make install DESTDIR=$INSTALL PREFIX=/usr -C utils/ir-ctl
   if [ "$CEC_FRAMEWORK_SUPPORT" = "yes" ]; then
+    make install DESTDIR=$INSTALL PREFIX=/usr -C utils/libcecutil
     make install DESTDIR=$INSTALL PREFIX=/usr -C utils/cec-ctl
   fi
   make install DESTDIR=$INSTALL PREFIX=/usr -C utils/dvb
