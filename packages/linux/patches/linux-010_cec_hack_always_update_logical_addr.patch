@@ -1,0 +1,18 @@
+diff --git a/drivers/media/cec/cec-adap.c b/drivers/media/cec/cec-adap.c
+index 6c95dc471d4c..c2ada765cc00 100644
+--- a/drivers/media/cec/cec-adap.c
++++ b/drivers/media/cec/cec-adap.c
+@@ -1276,8 +1276,11 @@ static int cec_config_log_addr(struct cec_adapter *adap,
+ 		 */
+ 		if (msg.tx_status & CEC_TX_STATUS_ABORTED)
+ 			return -EINTR;
+-		if (msg.tx_status & CEC_TX_STATUS_OK)
+-			return 0;
++		if (msg.tx_status & CEC_TX_STATUS_OK) {
++			dprintk(2, "%s: got OK resp for la %02x (cur la %02x cur la_mask %02x)\n",
++				__func__, log_addr, las->log_addr[idx], las->log_addr_mask);
++			break;
++		}
+ 		if (msg.tx_status & CEC_TX_STATUS_NACK)
+ 			break;
+ 		/*
