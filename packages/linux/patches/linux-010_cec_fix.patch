@@ -1,0 +1,18 @@
+diff --git a/drivers/gpu/drm/drm_dp_cec.c b/drivers/gpu/drm/drm_dp_cec.c
+index 3ab2609f9ec7..691c3bdd7a59 100644
+--- a/drivers/gpu/drm/drm_dp_cec.c
++++ b/drivers/gpu/drm/drm_dp_cec.c
+@@ -93,9 +93,14 @@ static int drm_dp_cec_adap_enable(struct cec_adapter *adap, bool enable)
+ {
+ 	struct drm_dp_aux *aux = cec_get_drvdata(adap);
+ 	u32 val = enable ? DP_CEC_TUNNELING_ENABLE : 0;
++	u8 mask[2] = { 0, 0x80 };
+ 	ssize_t err = 0;
+
++	if (enable)
++		drm_dp_dpcd_write(aux, DP_CEC_LOGICAL_ADDRESS_MASK, mask, 2);
+ 	err = drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_CONTROL, val);
++	if (enable)
++		mdelay(5);
+ 	return (enable && err < 0) ? err : 0;
+ }
