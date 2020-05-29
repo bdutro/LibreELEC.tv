@@ -1,0 +1,11 @@
+--- a/include/llvm/Demangle/MicrosoftDemangleNodes.h	2019-01-08 15:05:51.000000000 -0600
++++ b/include/llvm/Demangle/MicrosoftDemangleNodes.h	2020-05-29 15:23:59.135255546 -0500
+@@ -4,6 +4,8 @@
+ #include "llvm/Demangle/Compiler.h"
+ #include "llvm/Demangle/StringView.h"
+ #include <array>
++#include <cstdint>
++#include <string>
+ 
+ class OutputStream;
+ 
